@@ -2,8 +2,7 @@
 // http://go.microsoft.com/fwlink/?LinkID=397704
 // To debug code on page load in Ripple or on Android devices/emulators: launch your app, set breakpoints, 
 // and then run "window.location.reload()" in the JavaScript Console.
-(function () {
-    "use strict";
+
 
     document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
 
@@ -16,6 +15,31 @@
         var element = document.getElementById("deviceready");
         element.innerHTML = 'Device Ready';
         element.className += ' ready';
+        //RingtoneSelector.open("Helloworld plugin.",
+        //    function (message) {
+        //        alert(message);
+
+        //},
+        //function () {
+        //    alert("failed");
+        //});
+        var success = function (message) {
+            cordova.plugins.notification.local.schedule({
+                id: 1,
+                text: "Single Notification",
+                sound: message
+            });
+        }
+
+        var failure = function () {
+            alert("Error calling Hello Plugin");
+        }
+
+        cordova.plugins.RingtoneSelector.open("This is my plugin.", success, failure);
+        console.log(cordova.plugins.RingtoneSelector);
+
+        //content://media/internal/audio/media/47
+        
     };
 
     function onPause() {
@@ -25,4 +49,3 @@
     function onResume() {
         // TODO: This application has been reactivated. Restore application state here.
     };
-} )();
